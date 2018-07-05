@@ -8,10 +8,29 @@ $dl = new DeeplTranslate($default_language);
 $nfdInput="du&#x308;se";
 $input=html_entity_decode($nfdInput);
 $result=$dl->translate($input);
-echo $result;
+$success=true;
+
+
+echo "Input: $input\n";
+echo "Output: $result\n";
+
+echo "Unicode: ";
 if (strpos($result, "#x308")) {
-  echo "FAILED\n"; exit (1);
+  echo "FAILED\n"; $success=false;
 } else {
-  echo "OK\n"; exit (0);
+  echo "OK\n"; 
 }
+
+echo "Translation: ";
+if (! strpos($result, "nozzle")) {
+  echo "FAILED\n"; $success=false;
+} else {
+  echo "OK\n";
+}
+
+if ($success)
+	exit (0);
+else
+	exit (1);
+
 ?>
